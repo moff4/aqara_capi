@@ -44,3 +44,12 @@ fmt: isort
 lint: mypy pylint flake8
 	echo "Tests passed!"
 
+build:
+	python setup.py bdist_wheel --universal
+
+clear:
+	rm -rf build
+
+push:
+	twine upload dist/*
+
