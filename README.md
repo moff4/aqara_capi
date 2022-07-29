@@ -1,0 +1,2 @@
+# aqara
+Aqara Python SDK
