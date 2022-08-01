@@ -1,0 +1,4 @@
+mypy>=0.941
+flake8>=4.0.1
+pylint>=2.12.2
+types-requests>=2.27.16

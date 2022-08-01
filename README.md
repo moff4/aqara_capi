@@ -1,9 +1,17 @@
 
 # Aqara Cloud API
 
+[![CodeFactor](https://www.codefactor.io/repository/github/moff4/aqara_capi/badge)](https://www.codefactor.io/repository/github/moff4/aqara_capi)
+
 ### Python SDK for Aqara Cloud API
 
 _(Functionality is not full, but already has core for futher upgrades)_
+
+### Install
+
+```bash
+pip install aqara_capi
+```
 
 ### Example of usage
 
