@@ -25,11 +25,12 @@ class ResourceCloudApiClient(BaseCloudApiClient):
     def write_resource_device(self, subject_id: str, resource_id: str, value: str) -> CloudApiResponse:
         return self._request(
             intent='write.resource.device',
-            data={
-                'list_data': True,
-                'subjectId': subject_id,
-                'resources': [
-                    {'resourceId': resource_id, 'value': value}
-                ]
-            },
+            data=[
+                {
+                    'subjectId': subject_id,
+                    'resources': [
+                        {'resourceId': resource_id, 'value': value}
+                    ]
+                },
+            ],
         )

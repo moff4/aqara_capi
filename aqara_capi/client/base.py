@@ -60,10 +60,10 @@ class BaseCloudApiClient:
         seed = (urlencode([(key, headers[key]) for key in sorted(headers)]) + self.app_key).lower()
         return headers | {'sign': md5(seed.encode('utf-8')).hexdigest()}
 
-    def __raw_request(
+    def _raw_request(
         self,
         intent: str,
-        data: dict[str, Any],
+        data: Any,
     ) -> CloudApiResponse:
 
         headers = self._get_request_headers()
@@ -78,14 +78,14 @@ class BaseCloudApiClient:
         self.logger.debug('request[%s] got status: %s', intent, resp.status_code)
 
         resp.raise_for_status()
-        return resp.json()
+        return CloudApiResponse(**resp.json())
 
     def _request(
         self,
         intent: str,
-        data: dict[str, Any],
+        data: Any,
     ) -> CloudApiResponse:
-        res = self.__raw_request(intent=intent, data=data)
+        res = self._raw_request(intent=intent, data=data)
         if res.code != 0:
             self.logger.error('unexpected code "%s" for intent "%s"', res.code, intent)
         return res

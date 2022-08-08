@@ -10,14 +10,14 @@ class AuthCloudApiClient(BaseCloudApiClient):
     def _request(
         self,
         intent: str,
-        data: dict[str, Any],
+        data: Any,
     ) -> CloudApiResponse:
-        res = self.__raw_request(intent=intent, data=data)
+        res = self._raw_request(intent=intent, data=data)
         if res.code == 108:
             self.logger.warning('need to refresh access token')
             self.refresh_access_token()
-            res = self.__raw_request(intent=intent, data=data)
-        else:
+            res = self._raw_request(intent=intent, data=data)
+        elif res.code != 0:
             self.logger.error('unexpected code "%s" for intent "%s"', res.code, intent)
         return res
 
