@@ -1,3 +1,5 @@
+from typing import Optional
+
 from aqara_capi.types import CloudApiResponse
 
 from .base import BaseCloudApiClient
@@ -5,7 +7,7 @@ from .base import BaseCloudApiClient
 
 class ResourceCloudApiClient(BaseCloudApiClient):
 
-    def query_resource_info(self, model: str, resource_id: str | None = None) -> CloudApiResponse:
+    def query_resource_info(self, model: str, resource_id: Optional[str] = None) -> CloudApiResponse:
         return self._request(
             intent='query.resource.info',
             data={

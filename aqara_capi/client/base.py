@@ -1,7 +1,7 @@
 import time
 from hashlib import md5
 from logging import getLogger
-from typing import Any
+from typing import Any, Optional
 from urllib.parse import urlencode
 
 import requests
@@ -31,7 +31,7 @@ class BaseCloudApiClient:
         app_key: str,
         key_id: str,
         locality: Locality,
-        request_props: dict[str, Any] | None = None,
+        request_props: Optional[dict[str, Any]] = None,
     ) -> None:
         self.app_id = app_id
         self.app_key = app_key

@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Union
 
 # pylint: disable=no-name-in-module
 from pydantic import BaseModel
@@ -11,4 +11,4 @@ class CloudApiResponse(BaseModel):
     message: str
     msgDetails: str
     requestId: str
-    result: dict[str, Any] | list[Any] | None
+    result: Union[dict[str, Any], list[Any], None]
