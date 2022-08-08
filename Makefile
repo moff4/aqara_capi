@@ -48,7 +48,7 @@ build:
 	python setup.py bdist_wheel --universal
 
 clear:
-	rm -rf build
+	rm -rf build dist/*
 
 push:
 	twine upload dist/*
