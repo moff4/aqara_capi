@@ -1,14 +1,15 @@
 import time
 from hashlib import md5
 from logging import getLogger
-from typing import Any, Optional
+from typing import Any, Optional, Type, cast
 from urllib.parse import urlencode
 
 import requests
+from pydantic import BaseModel  # pylint: disable=no-name-in-module
 
-from aqara_capi.consts import API_DOMAIN, Locality
+from aqara_capi.consts import API_DOMAIN, ErrorCode, Locality
 from aqara_capi.misc import get_random_string
-from aqara_capi.types import CloudApiResponse
+from aqara_capi.response import CloudApiResponse, SubModel
 
 
 class BaseCloudApiClient:
@@ -64,7 +65,9 @@ class BaseCloudApiClient:
         self,
         intent: str,
         data: Any,
-    ) -> CloudApiResponse:
+        model: Optional[Type[BaseModel]] = None,
+        model_as_list: bool = False,
+    ) -> CloudApiResponse[SubModel]:
 
         headers = self._get_request_headers()
         payload = {'intent': intent, 'data': data}
@@ -78,15 +81,25 @@ class BaseCloudApiClient:
         self.logger.debug('request[%s] got status: %s', intent, resp.status_code)
 
         resp.raise_for_status()
-        return CloudApiResponse(**resp.json())
+        res = CloudApiResponse(**resp.json())  # type: CloudApiResponse[BaseModel]
+        if model:
+            res.apply_data_model(model=model, as_list=model_as_list)
+        return cast(CloudApiResponse[SubModel], res)
 
     def _request(
         self,
         intent: str,
         data: Any,
-    ) -> CloudApiResponse:
-        res = self._raw_request(intent=intent, data=data)
-        if res.code != 0:
+        model: Optional[Type[BaseModel]] = None,
+        model_as_list: bool = False,
+    ) -> CloudApiResponse[SubModel]:
+        res = self._raw_request(
+            intent=intent,
+            data=data,
+            model=model,
+            model_as_list=model_as_list,
+        )  # type:CloudApiResponse[SubModel]
+        if res.code != ErrorCode.CODE_SUCCESS:
             self.logger.error('unexpected code "%s" for intent "%s"', res.code, intent)
         return res
 
