@@ -41,6 +41,7 @@ class ResourceCloudApiClient(BaseCloudApiClient):
                 'resourceId': resource_id,
             },
             model=QueryResourceInfoModel,
+            model_as_list=True,
         )
 
     def query_resource_value(

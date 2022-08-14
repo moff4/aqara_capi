@@ -1,5 +1,5 @@
 import logging
-from typing import Any, Generic, Optional, Type, TypeVar, Union
+from typing import Any, Generic, Optional, Type, TypeVar
 
 # pylint: disable=no-name-in-module
 from pydantic import BaseModel, Field
@@ -19,12 +19,12 @@ class CloudApiResponse(BaseModel, Generic[SubModel]):
     msg_details: Optional[str] = Field(None, alias='msgDetails')
     result: Any
 
-    data: Union[None, SubModel, list[SubModel]] = None
+    data: SubModel = None  # type: ignore[assignment]
 
     def apply_data_model(self, model: Type[SubModel], as_list: bool = False) -> None:
         try:
             if as_list:
-                self.data = [
+                self.data = [  # type: ignore[assignment]
                     model(**item)
                     for item in self.result
                 ]

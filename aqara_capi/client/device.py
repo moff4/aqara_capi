@@ -23,7 +23,7 @@ class DeviceInfoModel(BaseModel):
 
 class QueryDeviceInfoModel(BaseModel):
     data: list[DeviceInfoModel]
-    totalCount: int
+    total_count: int
 
 
 class DeviceCloudApiClient(BaseCloudApiClient):
