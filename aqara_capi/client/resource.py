@@ -33,7 +33,7 @@ class ResourceCloudApiClient(BaseCloudApiClient):
         self,
         model: str,
         resource_id: Optional[str] = None,
-    ) -> CloudApiResponse[QueryResourceInfoModel]:
+    ) -> CloudApiResponse[list[QueryResourceInfoModel]]:
         return self._request(
             intent='query.resource.info',
             data={
