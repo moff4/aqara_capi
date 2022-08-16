@@ -53,3 +53,29 @@ class DeviceCloudApiClient(BaseCloudApiClient):
             model=DeviceInfoModel,
             model_as_list=True,
         )
+
+    def config_device_name(self, did: str, name: str) -> CloudApiResponse[None]:
+        return self._request(
+            intent='config.device.name',
+            data={
+                'did': did,
+                'name': name,
+            },
+        )
+
+    def config_device_position(self, dids: list[str], position_id: str) -> CloudApiResponse[None]:
+        return self._request(
+            intent='config.device.position',
+            data={
+                'dids': dids,
+                'positionId': position_id,
+            },
+        )
+
+    def write_device_unbind(self, did: str) -> CloudApiResponse[None]:
+        return self._request(
+            intent='write.device.unbind',
+            data={
+                'did': did,
+            },
+        )

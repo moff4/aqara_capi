@@ -82,6 +82,6 @@ class AuthCloudApiClient(BaseCloudApiClient):
             model=AccessTokenModel,
         )  # type: CloudApiResponse[AccessTokenModel]
         if res.code == ErrorCode.CODE_SUCCESS:
-            result = res.result  # type: AccessTokenModel
+            result = res.data  # type: AccessTokenModel
             self.set_tokens(access_token=result.access_token, refresh_token=result.refresh_token)
         return res

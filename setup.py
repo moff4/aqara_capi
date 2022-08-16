@@ -5,7 +5,7 @@ with open('README.md', 'r', encoding='utf-8') as fh:
 
 setuptools.setup(
     name='aqara_capi',
-    version='1.1.3',
+    version='1.2.0',
     author='Komissarov Andrey',
     author_email='Komissar.off.andrey@gmail.com',
     description='Aqara Cloud API SDK',
